@@ -1,0 +1,16 @@
+{
+    "panels": {
+        "panelsList": {
+            "templates": "Plantillas",
+            "customize": "Personalizar",
+            "elements": "Elementos",
+            "images": "Imagenes",
+            "videos": "Videos",
+            "uploads": "Cargas",
+            "text": "Texto",
+            "graphics": "Graficos",
+            "pixabay": "Pixabay",
+            "layers": "Capas"
+        }
+    }
+}

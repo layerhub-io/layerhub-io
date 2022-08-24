@@ -1,0 +1,26 @@
+{
+  "name": "@layerhub-io/react",
+  "version": "0.2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm run clean && pnpm run compile",
+    "clean": "rimraf -rf ./dist",
+    "compile": "tsc",
+    "prepublish": "pnpm build"
+  },
+  "devDependencies": {
+    "@layerhub-io/types": "workspace:^0.2.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@layerhub-io/core": "workspace:^0.2.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "resize-observer-polyfill": "^1.5.1"
+  }
+}

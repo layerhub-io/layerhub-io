@@ -1,0 +1,10 @@
+{
+  "name": "layerhub-io",
+  "scripts": {
+    "build": "pnpm turbo run build"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.22.0",
+    "turbo": "^1.2.11"
+  }
+}

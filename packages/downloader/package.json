@@ -1,0 +1,26 @@
+{
+  "name": "@layerhub-io/downloader",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublish": "pnpm build"
+  },
+  "author": "Dany Boza",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "typescript": "^4.6.3"
+  },
+  "peerDependencies": {
+    "fs-extra": "^10.1.0"
+  },
+  "dependencies": {
+    "@supercharge/promise-pool": "^2.1.0",
+    "axios": "^0.26.1",
+    "fs-extra": "^10.1.0"
+  }
+}

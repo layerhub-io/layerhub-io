@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2015","DOM"],
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "declaration": true,
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "types": [],
+    "jsx": "react",
+    "noEmit": false,
+    "outDir": "./dist",
+    "strict": false
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
