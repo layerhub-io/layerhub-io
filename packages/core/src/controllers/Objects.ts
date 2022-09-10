@@ -148,7 +148,7 @@ class Objects extends Base {
       }
     } else {
       const filteredObjects = this.canvas.getObjects().filter((object) => {
-        if (object.type === LayerType.FRAME) {
+        if (object.type === LayerType.FRAME || object.type === LayerType.BACKGROUND) {
           return false
         } else if (!object.evented) {
           return false
