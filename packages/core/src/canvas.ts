@@ -1,7 +1,10 @@
 import { fabric } from "fabric"
 import { FabricCanvas } from "./common/interfaces"
 import { EditorConfig } from "@layerhub-io/types"
+import type { Editor } from "."
+
 class Canvas {
+  private editor: Editor
   public container: HTMLDivElement
   public canvasContainer: HTMLDivElement
   public canvasElement: HTMLCanvasElement
@@ -12,8 +15,10 @@ class Canvas {
     height: 0,
   }
   private config: EditorConfig
-  constructor({ id, config }: { id: string; config: EditorConfig }) {
+
+  constructor({ id, config, editor }: { id: string; config: EditorConfig; editor: Editor }) {
     this.config = config
+    this.editor = editor
     this.canvasId = id
     this.initialize()
   }
@@ -73,6 +78,17 @@ class Canvas {
 
   public requestRenderAll() {
     this.canvas.requestRenderAll()
+  }
+
+  public get backgroundColor() {
+    return this.canvas.backgroundColor
+  }
+
+  public setBackgroundColor(color: string) {
+    this.canvas.setBackgroundColor(color, () => {
+      this.canvas.requestRenderAll()
+      this.editor.emit("canvas:updated")
+    })
   }
 }
 

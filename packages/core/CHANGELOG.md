@@ -1,5 +1,11 @@
 # @layerhub-io/core
 
+## 0.2.2
+
+### Patch Changes
+
+- make dynamic canvas background
+
 ## 0.2.1
 
 ### Patch Changes
