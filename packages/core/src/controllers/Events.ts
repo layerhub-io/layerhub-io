@@ -23,6 +23,7 @@ class Events extends Base {
       "mouse:wheel": this.onMouseWheel,
       "mouse:out": this.onMouseOut,
       "object:modified": this.objectModified,
+      "background:selected": this.onBackgroundSelected,
     })
 
     this.canvas.wrapperEl.addEventListener("keydown", this.onKeyDown.bind(this), false)
@@ -38,6 +39,7 @@ class Events extends Base {
       "mouse:wheel": this.onMouseWheel,
       "mouse:out": this.onMouseOut,
       "object:modified": this.objectModified,
+      "background:selected": this.onBackgroundSelected,
     })
 
     this.canvas.wrapperEl.removeEventListener("keydown", this.onKeyDown.bind(this))
@@ -125,6 +127,13 @@ class Events extends Base {
       event.preventDefault()
       this.editor.objects.cut()
     }
+  }
+
+  onBackgroundSelected = () => {
+    const objects = this.canvas.getObjects()
+    const frame = objects[0]
+    this.canvas.setActiveObject(objects[0])
+    this.state.setActiveObject(frame)
   }
 
   handleSelection = (target: fabric.IEvent) => {

@@ -19,7 +19,7 @@ export class BackgroundObject extends fabric.Rect {
     super.initialize({
       ...options,
       selectable: false,
-      hasControls: true,
+      hasControls: false,
       hasBorders: false,
       lockMovementY: true,
       lockMovementX: true,
@@ -27,6 +27,13 @@ export class BackgroundObject extends fabric.Rect {
       evented: true,
       hoverCursor: "default",
       shadow,
+    })
+
+    this.on("mouseup", ({ target }) => {
+      const activeSelection = this.canvas.getActiveObject()
+      if (!activeSelection && target === this) {
+        this.canvas.fire("background:selected")
+      }
     })
     return this
   }

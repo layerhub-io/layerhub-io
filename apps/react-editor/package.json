@@ -12,7 +12,7 @@
   "dependencies": {
     "@layerhub-io/use-timer": "^0.0.1",
     "@reduxjs/toolkit": "^1.8.2",
-    "@layerhub-io/react": "workspace:^0.2.0",
+    "@layerhub-io/react": "workspace:^0.2.1",
     "@layerhub-io/react-custom-scrollbar": "^0.0.1",
     "@layerhub-io/types": "workspace:^0.2.0",
     "are-passive-events-supported": "^1.1.1",
