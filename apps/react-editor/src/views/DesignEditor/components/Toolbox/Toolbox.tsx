@@ -6,7 +6,7 @@ import Items from "./Items"
 import useAppContext from "~/hooks/useAppContext"
 import { ILayer } from "@layerhub-io/types"
 
-const DEFAULT_TOOLBOX = "NONE"
+const DEFAULT_TOOLBOX = "Canvas"
 interface ToolboxState {
   toolbox: string
 }

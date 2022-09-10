@@ -1,5 +1,13 @@
 # @layerhub-io/react
 
+## 0.2.2
+
+### Patch Changes
+
+- make dynamic canvas background
+- Updated dependencies
+  - @layerhub-io/core@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

@@ -46,6 +46,7 @@ export class Editor extends EventManager {
     const canvas = new Canvas({
       id: this.canvasId,
       config: this.config,
+      editor: this,
     })
     this.canvas = canvas
   }
