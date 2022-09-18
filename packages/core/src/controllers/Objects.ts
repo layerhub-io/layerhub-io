@@ -9,9 +9,9 @@ import ObjectImporter from "../utils/object-importer"
 import setObjectGradient, { setObjectShadow } from "../utils/fabric"
 
 class Objects extends Base {
-  private clipboard: any
+  public clipboard: any
   public isCut: any
-  private copyStyleClipboard: any
+  public copyStyleClipboard: any
 
   public add = async <T>(item: T) => {
     const { canvas } = this
@@ -67,6 +67,9 @@ class Objects extends Base {
           } else {
             refObject.set("clipPath", null)
           }
+        } else if (property === "shadow") {
+          // @ts-ignore
+          this.setShadow(options["shadow"])
         } else {
           if (refObject.type === LayerType.ACTIVE_SELECTION && refObject._objects) {
             refObject._objects.forEach((object) => {

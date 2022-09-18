@@ -1,19 +1,10 @@
 import React from "react"
-import { styled } from "baseui"
-import { Theme } from "baseui/theme"
 import Icons from "~/components/Icons"
 import { Button, KIND, SIZE } from "baseui/button"
+import { useZoomRatio, useEditor } from "@layerhub-io/react"
+import { Block } from "baseui/block"
 import { Slider } from "baseui/slider"
 import { Input } from "baseui/input"
-import { useEditor, useZoomRatio } from "@layerhub-io/react"
-
-const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
-  height: "50px",
-  background: $theme.colors.white,
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-}))
 
 interface Options {
   zoomRatio: number
@@ -22,15 +13,11 @@ interface Options {
 export default function () {
   const zoomMin = 10
   const zoomMax = 240
+  const editor = useEditor()
   const [options, setOptions] = React.useState<Options>({
     zoomRatio: 20,
   })
-  const editor = useEditor()
   const zoomRatio: number = useZoomRatio()
-
-  React.useEffect(() => {
-    setOptions({ ...options, zoomRatio: Math.round(zoomRatio * 100) })
-  }, [zoomRatio])
 
   const handleChange = (type: string, value: any) => {
     if (value < 0) {
@@ -43,9 +30,21 @@ export default function () {
       editor.zoom.zoomToRatio(value / 100)
     }
   }
-  
+
+  React.useEffect(() => {
+    setOptions({ ...options, zoomRatio: Math.round(zoomRatio * 100) })
+  }, [zoomRatio])
+
   return (
-    <Container>
+    <Block
+      $style={{
+        height: "50px",
+        background: "#ffffff",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <div>
         <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Layers size={20} />
@@ -55,7 +54,8 @@ export default function () {
         <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Expand size={16} />
         </Button>
-        <Button kind={KIND.tertiary} size={SIZE.compact}>
+        <Button kind={KIND.tertiary} size={SIZE.compact}
+          onClick={() => editor.zoom.zoomToFit()}>
           <Icons.Compress size={16} />
         </Button>
         <Button kind={KIND.tertiary} size={SIZE.compact}
@@ -124,6 +124,6 @@ export default function () {
           <Icons.TimePast size={16} />
         </Button>
       </div>
-    </Container>
+    </Block>
   )
 }
