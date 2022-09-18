@@ -20,7 +20,7 @@ function Video() {
       const currentTemplate = editor.scene.exportToJSON()
       if (page.id === currentTemplate.id) {
         return {
-          duration: 5,
+          duration: page.duration! / 1000,
           layers: currentTemplate.layers,
         }
       }
@@ -38,18 +38,16 @@ function Video() {
       dimension: template.frame,
       clips: clips,
     }
-
     fetch("https://render.layerhub.io/render", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(options),
     })
       .then((res) => {
-        return res.blob()
+        return res.json()
       })
-      .then((blob) => {
-        const video = window.URL.createObjectURL(blob)
-        setState({ video })
+      .then((res) => {
+        setState({ video: res.url })
         setLoading(false)
       })
       .catch((err) => console.error(err))

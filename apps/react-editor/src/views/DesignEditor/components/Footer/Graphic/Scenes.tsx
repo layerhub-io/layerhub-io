@@ -1,6 +1,5 @@
 import React from "react"
-import { styled, useStyletron } from "baseui"
-import { Theme } from "baseui/theme"
+import { useStyletron } from "baseui"
 import Add from "~/components/Icons/Add"
 import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
@@ -8,11 +7,7 @@ import { nanoid } from "nanoid"
 import { getDefaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@layerhub-io/react"
 import { IScene } from "@layerhub-io/types"
-
-const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
-  background: $theme.colors.white,
-  padding: "0.25rem 0.75rem",
-}))
+import { Block } from "baseui/block"
 
 export default function () {
   const scenes = useDesignEditorPages()
@@ -63,7 +58,7 @@ export default function () {
           name: "Untitled Design",
           preview: "",
           scenes: [],
-          type: "PRESENTATION",
+          type: "GRAPHIC",
         })
         editor.scene
           .importFromJSON(defaultTemplate)
@@ -90,6 +85,7 @@ export default function () {
 
   const addScene = React.useCallback(async () => {
     setCurrentPreview("")
+
     const updatedTemplate = editor.scene.exportToJSON()
     const updatedPreview = await editor.renderer.render(updatedTemplate)
 
@@ -130,8 +126,13 @@ export default function () {
   )
 
   return (
-    <Container>
-      <div className={css({ display: "flex", alignItems: "center" })}>
+    <Block
+      $style={{
+        padding: "0.25rem 0.75rem",
+        background: "#ffffff",
+      }}
+    >
+      <Block $style={{ display: "flex", alignItems: "center" }}>
         {scenes.map((page, index) => (
           <div
             style={{
@@ -194,7 +195,7 @@ export default function () {
             <Add size={20} />
           </div>
         </div>
-      </div>
-    </Container>
+      </Block>
+    </Block>
   )
 }

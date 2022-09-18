@@ -57,7 +57,7 @@ importers:
       '@babel/preset-env': 7.16.11
       '@babel/preset-react': 7.16.7
       '@babel/preset-typescript': 7.16.7
-      '@layerhub-io/react': workspace:^0.2.0
+      '@layerhub-io/react': workspace:^0.2.2
       '@layerhub-io/react-custom-scrollbar': ^0.0.1
       '@layerhub-io/types': workspace:^0.2.0
       '@layerhub-io/use-timer': ^0.0.1
@@ -159,7 +159,7 @@ importers:
 
   packages/core:
     specifiers:
-      '@layerhub-io/objects': workspace:^0.1.0
+      '@layerhub-io/objects': workspace:^0.1.1
       '@layerhub-io/types': workspace:^0.2.0
       '@types/fabric': ^4.5.7
       '@types/lodash': ^4.14.182
@@ -210,7 +210,7 @@ importers:
 
   packages/react:
     specifiers:
-      '@layerhub-io/core': workspace:^0.2.0
+      '@layerhub-io/core': workspace:^0.2.2
       '@layerhub-io/types': workspace:^0.2.0
       '@types/react': ^18.0.0
       '@types/react-dom': ^18.0.0

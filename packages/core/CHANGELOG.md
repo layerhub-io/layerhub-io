@@ -1,5 +1,11 @@
 # @layerhub-io/core
 
+## 0.2.3
+
+### Patch Changes
+
+- update shadow apply
+
 ## 0.2.2
 
 ### Patch Changes

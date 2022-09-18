@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const PEXELS_KEY = "563492ad6f9170000100000106a307bb7f744a0babfd5e7885d9a620"
+const PEXELS_KEY = "import.meta.env.VITE_APP_PEXELS_KEY"
 const pexelsClient = axios.create({
   baseURL: "https://api.pexels.com",
   headers: {

@@ -1,5 +1,13 @@
 # @layerhub-io/react
 
+## 0.2.3
+
+### Patch Changes
+
+- update shadow apply
+- Updated dependencies
+  - @layerhub-io/core@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes
