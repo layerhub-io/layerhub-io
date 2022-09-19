@@ -9,10 +9,23 @@ import Outline from "./Common/Outline"
 import Shadow from "./Common/Shadow"
 
 const EFFECTS = {
+  None: {
+    shadow: {
+      blur: 2,
+      color: "#afafaf",
+      offsetX: 10,
+      offsetY: 10,
+      enabled: false,
+    },
+  },
   Shadow: {
-    color: "#afafaf",
-    offsetX: 10,
-    offsetY: 10,
+    shadow: {
+      blur: 2,
+      color: "#afafaf",
+      offsetX: 10,
+      offsetY: 10,
+      enabled: true,
+    },
   },
 }
 export default function () {
@@ -28,18 +41,14 @@ export default function () {
     setColor(color)
   }, 100)
 
-  const applyEffect = () => {
+  const applyEffect = (name: string) => {
     if (editor) {
-      editor.objects.update({
-        shadow: {
-          blur: 2,
-          color: "#afafaf",
-          // @ts-ignore
-          enabled: true,
-          offsetX: 10,
-          offsetY: 10,
-        },
-      })
+      //  @ts-ignore
+      const effect = EFFECTS[name]
+      console.log({ effect, name })
+      if (effect) {
+        editor.objects.update(effect)
+      }
     }
   }
   return (
@@ -64,9 +73,9 @@ export default function () {
           <Block $style={{ display: "grid", gridTemplateColumns: "80px 80px 80px", gap: "0.5rem" }}>
             {TEXT_EFFECTS.map((effect, index) => {
               return (
-                <Block key={index}>
+                <Block>
                   <Block
-                    onClick={applyEffect}
+                    onClick={() => applyEffect(effect.name)}
                     $style={{
                       border: "1px solid #afafaf",
                       display: "flex",

@@ -70,36 +70,30 @@ class Objects extends Base {
         } else if (property === "shadow") {
           // @ts-ignore
           this.setShadow(options["shadow"])
-        } else {
-          if (refObject.type === LayerType.ACTIVE_SELECTION && refObject._objects) {
-            refObject._objects.forEach((object) => {
-              if (property === "metadata") {
-                object.set("metadata", {
-                  ...object.metadata,
-                  ...options["metadata"],
-                })
-              } else {
-                // @ts-ignore
-                object.set(property, options[property])
-              }
-              object.setCoords()
-            })
-          } else {
+        } else if (property === "metadata") {
+          refObject.set("metadata", {
+            ...refObject.metadata,
+            ...options[property],
+          })
+        } else if (refObject.type === LayerType.ACTIVE_SELECTION && refObject._objects) {
+          refObject._objects.forEach((object) => {
             if (property === "metadata") {
-              refObject.set("metadata", {
-                ...refObject.metadata,
-                ...options[property],
+              object.set("metadata", {
+                ...object.metadata,
+                ...options["metadata"],
               })
             } else {
               // @ts-ignore
-              refObject.set(property, options[property])
+              object.set(property, options[property])
             }
-            refObject.setCoords()
-          }
+            object.setCoords()
+          })
+        } else {
+          // @ts-ignore
+          refObject.set(property as keyof fabric.Object, options[property])
+          canvas.requestRenderAll()
+          refObject.setCoords()
         }
-        // @ts-ignore
-        refObject.set(property as keyof fabric.Object, options[property])
-        canvas.requestRenderAll()
       }
       this.editor.history.save()
     }
