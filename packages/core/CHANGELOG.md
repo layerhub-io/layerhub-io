@@ -1,5 +1,11 @@
 # @layerhub-io/core
 
+## 0.2.4
+
+### Patch Changes
+
+- fix updated being updated twice
+
 ## 0.2.3
 
 ### Patch Changes
