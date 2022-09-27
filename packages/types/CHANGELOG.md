@@ -1,5 +1,11 @@
 # @layerhub-io/types
 
+## 0.2.1
+
+### Patch Changes
+
+- make crop props options
+
 ## 0.2.0
 
 ### Minor Changes
