@@ -91,8 +91,6 @@ interface Animation {
   type: string
 }
 
-
-
 export interface IStaticText extends LayerBaseOptions {
   fontURL?: string
   textAlign?: string
@@ -111,8 +109,8 @@ export interface IDynamicText extends IStaticText {
 
 export interface IStaticImage extends LayerBaseOptions {
   src: string
-  cropX: number
-  cropY: number
+  cropX?: number
+  cropY?: number
 }
 export interface IDynamicImage extends LayerBaseOptions {
   key: string
