@@ -69,11 +69,18 @@ export class Editor extends EventManager {
     this.renderer = new Renderer()
   }
 
+  public debug() {
+    console.log({
+      objects: this.canvas.canvas.getObjects(),
+      json: this.canvas.canvas.toJSON(),
+    })
+  }
+
   public destroy() {
     this.canvas.destroy()
   }
   // CONTEXT MENU
-  public cancelContextMenu = () => {
+  public cancelContextMenuRequest = () => {
     this.state.setContextMenuRequest(null)
   }
 }

@@ -1,5 +1,11 @@
 # @layerhub-io/core
 
+## 0.2.5
+
+### Patch Changes
+
+- Add debug option
+
 ## 0.2.4
 
 ### Patch Changes
