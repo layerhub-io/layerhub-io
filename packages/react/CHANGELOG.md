@@ -1,5 +1,13 @@
 # @layerhub-io/react
 
+## 0.2.5
+
+### Patch Changes
+
+- Add debug option
+- Updated dependencies
+  - @layerhub-io/core@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes
