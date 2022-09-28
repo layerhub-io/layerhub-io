@@ -202,6 +202,7 @@ class Scene extends Base {
     }
     this.editor.zoom.zoomToFit()
     this.editor.objects.updateContextObjects()
+    this.editor.history.save()
   }
 
   public async importFromSVG(url: string) {
