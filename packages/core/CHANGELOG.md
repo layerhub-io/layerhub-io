@@ -1,5 +1,11 @@
 # @layerhub-io/core
 
+## 0.2.6
+
+### Patch Changes
+
+- Push history on load template from json
+
 ## 0.2.5
 
 ### Patch Changes
