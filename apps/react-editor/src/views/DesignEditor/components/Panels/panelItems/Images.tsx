@@ -16,7 +16,7 @@ export default function () {
       if (editor) {
         const options = {
           type: "StaticImage",
-          src: url,
+          src: "https://cdn.mappetite.studio/images/studio/background/nature/usgs-XFWg9u0TYs4-unsplash.jpg",
         }
         editor.objects.add(options)
       }
