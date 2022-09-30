@@ -7,6 +7,7 @@ export type ILayerType =
   | "StaticPath"
   | "DynamicPath"
   | "StaticImage"
+  | "BackgroundImage"
   | "StaticVideo"
   | "StaticAudio"
   | "DynamicImage"
@@ -24,12 +25,14 @@ export enum LayerType {
   STATIC_PATH = "StaticPath",
   DYNAMIC_PATH = "DynamicPath",
   STATIC_IMAGE = "StaticImage",
+  BACKGROUND_IMAGE = "BackgroundImage",
   STATIC_VIDEO = "StaticVideo",
   STATIC_AUDIO = "StaticAudio",
   DYNAMIC_IMAGE = "DynamicImage",
   STATIC_TEXT = "StaticText",
   DYNAMIC_TEXT = "DynamicText",
   BACKGROUND = "Background",
+  PRINT_ITEM = "PrintItem",
   FRAME = "Frame",
   GROUP = "Group",
   ACTIVE_SELECTION = "activeSelection",
@@ -47,6 +50,11 @@ export interface IShadow {
   offsetY: number
   affectStroke?: boolean
   nonScaling?: boolean
+}
+
+interface Param {
+  key: string
+  name: string
 }
 
 interface LayerBaseOptions {
@@ -69,6 +77,7 @@ interface LayerBaseOptions {
   skewY?: number
   stroke?: string
   strokeWidth?: number
+  watermark?: string
   visible?: boolean
   shadow?: IShadow
   metadata?: Record<string, string | number | boolean>
@@ -85,6 +94,7 @@ interface LayerBaseOptions {
   duration?: number
   display?: TimeRange
   cut?: TimeRange
+  params?: Param[]
 }
 
 interface Animation {
@@ -112,6 +122,8 @@ export interface IStaticImage extends LayerBaseOptions {
   cropX?: number
   cropY?: number
 }
+
+export interface IBackgroundImage extends IStaticImage {}
 export interface IDynamicImage extends LayerBaseOptions {
   key: string
 }
@@ -155,6 +167,7 @@ export type ILayer =
   | IStaticVideo
   | IStaticVector
   | IGroup
+  | IBackgroundImage
 
 export type ILayerOptions = IStaticText &
   IDynamicText &
@@ -165,4 +178,5 @@ export type ILayerOptions = IStaticText &
   IStaticAudio &
   IStaticVideo &
   IStaticVector &
-  IGroup
+  IGroup &
+  IBackgroundImage

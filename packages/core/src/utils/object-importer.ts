@@ -6,6 +6,7 @@ import { Editor } from "../editor"
 import { updateObjectBounds, updateObjectShadow } from "./fabric"
 import {
   IBackground,
+  IBackgroundImage,
   IGroup,
   ILayer,
   IStaticAudio,
@@ -28,6 +29,10 @@ class ObjectImporter {
       case LayerType.STATIC_IMAGE:
         // @ts-ignore
         object = await this.staticImage(item, options, inGroup)
+        break
+      case LayerType.BACKGROUND_IMAGE:
+        // @ts-ignore
+        object = await this.backgroundImage(item, options, inGroup)
         break
       case LayerType.STATIC_VIDEO:
         object = await this.staticVideo(item, options, inGroup)
@@ -112,6 +117,36 @@ class ObjectImporter {
 
         updateObjectBounds(element, options)
         updateObjectShadow(element, item.shadow)
+
+        resolve(element)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  public backgroundImage(item: ILayer, options: Required<ILayer>, inGroup: boolean): Promise<fabric.BackgroundImage> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const baseOptions = this.getBaseOptions(item, options, inGroup)
+        const { src, cropX, cropY } = item as IBackgroundImage
+
+        const image: any = await loadImageFromURL(src)
+
+        const { width, height } = baseOptions
+        if (!width || !height) {
+          baseOptions.width = image.width
+          baseOptions.height = image.height
+        }
+
+        const element = new fabric.BackgroundImage(image, {
+          ...baseOptions,
+          cropX: cropX || 0,
+          cropY: cropY || 0,
+        })
+
+        updateObjectBounds(element, options)
+        // updateObjectShadow(element, item.shadow)
 
         resolve(element)
       } catch (err) {

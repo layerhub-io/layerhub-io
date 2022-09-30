@@ -1,5 +1,7 @@
 import { Dimension, RotationControlPosition } from "./common"
 
+type SceneType = "CUSTOMIZATION" | "GRAPHIC" | "PRESENTATION" | "VIDEO"
+
 export interface EditorConfig {
   id: string
   clipToFrame: boolean
@@ -12,6 +14,7 @@ export interface EditorConfig {
   background: string
   size: Dimension
   controlsPosition: ControlsPosition
+  type: SceneType
 }
 
 export interface ControlsPosition {

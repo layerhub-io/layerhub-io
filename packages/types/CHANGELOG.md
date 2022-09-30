@@ -1,5 +1,11 @@
 # @layerhub-io/types
 
+## 0.3.0
+
+### Minor Changes
+
+- Add background image support
+
 ## 0.2.1
 
 ### Patch Changes

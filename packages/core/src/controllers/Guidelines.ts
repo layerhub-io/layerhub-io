@@ -12,14 +12,14 @@ class Guidelines extends Base {
   public ctx: CanvasRenderingContext2D
   constructor(props: HandlerOptions) {
     super(props)
-    // this.initAligningGuidelines(this.canvas);
+    this.initAligningGuidelines(this.canvas)
   }
 
   initAligningGuidelines(canvas) {
     var ctx = canvas.getSelectionContext(),
-      aligningLineOffset = 1,
-      aligningLineMargin = 10,
-      aligningLineWidth = 1.5,
+      aligningLineOffset = 0,
+      aligningLineMargin = 16,
+      aligningLineWidth = 1.2,
       aligningLineColor = "#e056fd",
       viewportTransform,
       zoom = canvas.getZoom()
@@ -54,10 +54,11 @@ class Guidelines extends Base {
       ctx.restore()
     }
 
-    function isInRange(value1: any, value2: any) {
+    function isInRange(value1: any, value2: any, customAligningLineMargin?: number) {
+      let aligningMargin = customAligningLineMargin ? customAligningLineMargin : aligningLineMargin
       value1 = Math.round(value1)
       value2 = Math.round(value2)
-      for (var i = value1 - aligningLineMargin, len = value1 + aligningLineMargin; i <= len; i++) {
+      for (var i = value1 - aligningMargin, len = value1 + aligningMargin; i <= len; i++) {
         if (i === value2) {
           return true
         }
@@ -99,9 +100,10 @@ class Guidelines extends Base {
           objectBoundingRect = canvasObjects[i].getBoundingRect(),
           objectHeight = objectBoundingRect.height / viewportTransform[3],
           objectWidth = objectBoundingRect.width / viewportTransform[0]
-
+        let backgroundImageMargin =
+          activeObject.type === "BackgroundImage" && canvasObjects[i].type === "Frame" ? 30 : false
         // snap by the horizontal center line
-        if (isInRange(objectLeft, activeObjectLeft)) {
+        if (isInRange(objectLeft, activeObjectLeft, backgroundImageMargin)) {
           verticalInTheRange = true
           if (canvasObjects[i].type === "Frame") {
             verticalLines.push({
@@ -126,7 +128,7 @@ class Guidelines extends Base {
         }
 
         // snap by the left edge
-        if (isInRange(objectLeft - objectWidth / 2, activeObjectLeft - activeObjectWidth / 2)) {
+        if (isInRange(objectLeft - objectWidth / 2, activeObjectLeft - activeObjectWidth / 2, backgroundImageMargin)) {
           verticalInTheRange = true
 
           if (canvasObjects[i].type === "Frame") {
@@ -156,7 +158,7 @@ class Guidelines extends Base {
         }
 
         // snap by the right edge
-        if (isInRange(objectLeft + objectWidth / 2, activeObjectLeft + activeObjectWidth / 2)) {
+        if (isInRange(objectLeft + objectWidth / 2, activeObjectLeft + activeObjectWidth / 2, backgroundImageMargin)) {
           verticalInTheRange = true
 
           if (canvasObjects[i].type === "Frame") {
@@ -187,7 +189,7 @@ class Guidelines extends Base {
         }
 
         // snap by the vertical center line
-        if (isInRange(objectTop, activeObjectTop)) {
+        if (isInRange(objectTop, activeObjectTop, backgroundImageMargin)) {
           horizontalInTheRange = true
 
           if (canvasObjects[i].type === "Frame") {
@@ -214,7 +216,7 @@ class Guidelines extends Base {
         }
 
         // snap by the top edge
-        if (isInRange(objectTop - objectHeight / 2, activeObjectTop - activeObjectHeight / 2)) {
+        if (isInRange(objectTop - objectHeight / 2, activeObjectTop - activeObjectHeight / 2, backgroundImageMargin)) {
           horizontalInTheRange = true
 
           if (canvasObjects[i].type === "Frame") {
@@ -245,7 +247,7 @@ class Guidelines extends Base {
         }
 
         // snap by the bottom edge
-        if (isInRange(objectTop + objectHeight / 2, activeObjectTop + activeObjectHeight / 2)) {
+        if (isInRange(objectTop + objectHeight / 2, activeObjectTop + activeObjectHeight / 2, backgroundImageMargin)) {
           horizontalInTheRange = true
 
           if (canvasObjects[i].type === "Frame") {

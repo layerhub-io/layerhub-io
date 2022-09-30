@@ -2,7 +2,16 @@ import { fabric } from "fabric"
 import { LayerType } from "../common/constants"
 import { loadImageFromURL } from "./image-loader"
 import { updateObjectShadow } from "./fabric"
-import { IBackground, IGroup, ILayer, IStaticImage, IStaticPath, IStaticText, IStaticVector } from "@layerhub-io/types"
+import {
+  IBackground,
+  IBackgroundImage,
+  IGroup,
+  ILayer,
+  IStaticImage,
+  IStaticPath,
+  IStaticText,
+  IStaticVector,
+} from "@layerhub-io/types"
 
 class ObjectImporter {
   async import(item: any, params: any): Promise<fabric.Object> {
@@ -13,6 +22,9 @@ class ObjectImporter {
         break
       case LayerType.STATIC_IMAGE:
         object = await this.staticImage(item)
+        break
+      case LayerType.BACKGROUND_IMAGE:
+        object = await this.backgroundImage(item)
         break
       case LayerType.STATIC_VIDEO:
         object = await this.staticVideo(item)
@@ -73,6 +85,27 @@ class ObjectImporter {
 
         const image: any = await loadImageFromURL(src)
         const element = new fabric.StaticImage(image, {
+          ...baseOptions,
+          cropX: cropX || 0,
+          cropY: cropY || 0,
+        })
+        updateObjectShadow(element, item.shadow)
+
+        resolve(element)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  public backgroundImage(item: ILayer): Promise<fabric.BackgroundImage> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const baseOptions = this.getBaseOptions(item)
+        const { src, cropX, cropY } = item as IBackgroundImage
+
+        const image: any = await loadImageFromURL(src)
+        const element = new fabric.BackgroundImage(image, {
           ...baseOptions,
           cropX: cropX || 0,
           cropY: cropY || 0,

@@ -7,7 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@layerhub-io/vue": "workspace:^0.1.1",
+    "@layerhub-io/vue": "workspace:^0.1.2",
     "vue": "^3.2.25"
   },
   "devDependencies": {
