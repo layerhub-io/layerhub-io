@@ -8,6 +8,7 @@ import {
   IStaticPath,
   IBackground,
   IGroup,
+  IBackgroundImage,
 } from "@layerhub-io/types"
 import { LayerType } from "../common/constants"
 
@@ -17,6 +18,9 @@ class ObjectExporter {
     switch (item.type) {
       case LayerType.STATIC_IMAGE:
         object = this.staticImage(item, options, inGroup)
+        break
+      case LayerType.BACKGROUND_IMAGE:
+        object = this.backgroundImage(item, options, inGroup)
         break
       case LayerType.STATIC_VIDEO:
         object = this.staticVideo(item, options, inGroup)
@@ -80,6 +84,20 @@ class ObjectExporter {
   public staticImage(item: ILayer, options: Required<ILayer>, inGroup: boolean): IStaticImage {
     const baseOptions = this.getBaseOptions(item, options, inGroup)
     const { src, cropX, cropY, metadata } = item as IStaticImage
+    const object = {
+      ...baseOptions,
+      src,
+      cropX,
+      cropY,
+      metadata,
+    }
+
+    return object
+  }
+
+  public backgroundImage(item: ILayer, options: Required<ILayer>, inGroup: boolean): IBackgroundImage {
+    const baseOptions = this.getBaseOptions(item, options, inGroup)
+    const { src, cropX, cropY, metadata } = item as IBackgroundImage
     const object = {
       ...baseOptions,
       src,

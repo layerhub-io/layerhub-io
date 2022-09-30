@@ -7,6 +7,7 @@ import { copyStyleProps, getCopyStyleCursor, LayerType } from "../common/constan
 import { Direction, GradientOptions, ScaleType, ShadowOptions, Size } from "../common/interfaces"
 import ObjectImporter from "../utils/object-importer"
 import setObjectGradient, { setObjectShadow } from "../utils/fabric"
+import { loadImageFromURL } from "../utils/image-loader"
 
 class Objects extends Base {
   public clipboard: any
@@ -216,25 +217,32 @@ class Objects extends Base {
 
   public scale(type: ScaleType, id?: string) {
     let refObject = this.canvas.getActiveObject() as Required<fabric.Object>
-    const { width, height } = this.editor.frame.frame
+    const { width, height, top } = this.editor.frame.frame
     if (id) {
       refObject = this.findOneById(id)
     }
     if (refObject) {
+      let scaleX = width / refObject.width
+      let scaleY = height / refObject.height
+      const scaleMax = Math.max(scaleX, scaleY)
+      const scaleMin = Math.min(scaleX, scaleY)
+
       if (type === "fit") {
         refObject.set({
-          scaleX: width / refObject.width,
-          scaleY: height / refObject.height,
+          scaleX: scaleMin,
+          scaleY: scaleMin,
         })
       }
       if (type === "fill") {
-        const proportion = height / refObject.height
         refObject.set({
-          scaleY: height / refObject.height,
-          scaleX: (refObject.width * proportion) / refObject.width,
+          scaleY: scaleMax,
+          scaleX: scaleMax,
         })
       }
       refObject.center()
+      if (scaleY >= scaleX) {
+        refObject.set("top", top)
+      }
     }
   }
 
@@ -451,7 +459,10 @@ class Objects extends Base {
 
     const index = objects.findIndex((o) => o === refObject)
 
-    if (refObject && index > 2) {
+    const backgroundImage = objects.find((o) => o.type === LayerType.BACKGROUND_IMAGE)
+    const canBeMoved = backgroundImage ? index > 3 : index > 2
+
+    if (refObject && canBeMoved) {
       this.canvas.sendBackwards(refObject)
     }
   }
@@ -461,14 +472,20 @@ class Objects extends Base {
    */
   public sendToBack = (id?: string) => {
     let refObject = this.canvas.getActiveObject()
+    const objects = this.canvas.getObjects()
+    const backgroundImage = objects.find((o) => o.type === LayerType.BACKGROUND_IMAGE)
     if (id) {
       refObject = this.findOneById(id)
     }
+    // const indexx =
     if (refObject) {
-      refObject.moveTo(2)
+      if (backgroundImage) {
+        refObject.moveTo(3)
+      } else {
+        refObject.moveTo(2)
+      }
     }
   }
-
   /**
    * Moves an object to the top of the frame. If multiple objects are selected,
    * will move all objects to the top of the selection.
@@ -699,6 +716,40 @@ class Objects extends Base {
         })
       }
       this.canvas.requestRenderAll()
+    }
+  }
+
+  public async setAsBackgroundImage() {
+    const activeObject = this.canvas.getActiveObject()
+    if (activeObject && activeObject.type === LayerType.STATIC_IMAGE) {
+      const frame = this.editor.frame.frame
+      const objects = this.canvas.getObjects()
+      const currentBackgroundImage = objects.find((o) => o.type === LayerType.BACKGROUND_IMAGE)
+      let nextImage: any
+      if (currentBackgroundImage) {
+        const currentBackgroundImageJSON = currentBackgroundImage.toJSON(this.config.propertiesToInclude)
+        delete currentBackgroundImageJSON.clipPath
+        const nextImageElement = await loadImageFromURL(currentBackgroundImageJSON.src)
+        nextImage = new fabric.StaticImage(nextImageElement, { ...currentBackgroundImageJSON, id: nanoid() })
+        // @ts-ignore
+        this.canvas.add(nextImage)
+        this.canvas.remove(currentBackgroundImage)
+      }
+      const objectJSON = activeObject.toJSON(this.config.propertiesToInclude)
+      delete objectJSON.clipPath
+      const image = await loadImageFromURL(objectJSON.src)
+      const backgroundImage = new fabric.BackgroundImage(image, { ...objectJSON, id: nanoid() })
+      // @ts-ignore
+      this.canvas.add(backgroundImage)
+      backgroundImage.clipPath = frame
+      this.canvas.remove(activeObject)
+
+      this.canvas.requestRenderAll()
+      this.scale("fill", backgroundImage.id)
+      backgroundImage.moveTo(2)
+      if (nextImage) {
+        this.sendToBack(nextImage.id)
+      }
     }
   }
 

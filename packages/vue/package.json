@@ -1,6 +1,6 @@
 {
   "name": "@layerhub-io/vue",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -23,8 +23,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@layerhub-io/core": "workspace:^0.2.0",
-    "@layerhub-io/objects": "workspace:^0.1.0",
+    "@layerhub-io/core": "workspace:^0.3.0",
+    "@layerhub-io/objects": "workspace:^0.2.0",
     "resize-observer-polyfill": "^1.5.1",
     "rollup": "^2.74.1",
     "rollup-plugin-typescript2": "^0.31.2",

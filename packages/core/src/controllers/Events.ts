@@ -134,6 +134,7 @@ class Events extends Base {
     const frame = objects[0]
     this.canvas.setActiveObject(objects[0])
     this.state.setActiveObject(frame)
+    this.canvas.requestRenderAll()
   }
 
   handleSelection = (target: fabric.IEvent) => {

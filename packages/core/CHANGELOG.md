@@ -1,5 +1,17 @@
 # @layerhub-io/core
 
+## 0.3.0
+
+### Minor Changes
+
+- Add background image support
+
+### Patch Changes
+
+- Updated dependencies
+  - @layerhub-io/objects@0.2.0
+  - @layerhub-io/types@0.3.0
+
 ## 0.2.6
 
 ### Patch Changes

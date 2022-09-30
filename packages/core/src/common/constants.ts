@@ -28,6 +28,7 @@ export const defaultEditorConfig: EditorConfig = {
   shortcuts: true,
   frameMargin: 120,
   background: "#ecf0f1",
+  type: "GRAPHIC",
   size: {
     width: 1200,
     height: 900,
@@ -63,6 +64,7 @@ export enum LayerType {
   STATIC_TEXT = "StaticText",
   ACTIVE_SELECTION = "activeSelection",
   BACKGROUND = "Background",
+  BACKGROUND_IMAGE = "BackgroundImage",
   FRAME = "Frame",
   GROUP = "Group",
 }

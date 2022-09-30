@@ -1,5 +1,11 @@
 # @layerhub-io/objects
 
+## 0.2.0
+
+### Minor Changes
+
+- Add background image support
+
 ## 0.1.1
 
 ### Patch Changes

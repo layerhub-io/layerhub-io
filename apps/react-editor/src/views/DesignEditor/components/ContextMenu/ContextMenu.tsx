@@ -45,7 +45,7 @@ function ContextMenu() {
             disabled={true}
             onClick={() => {
               editor.objects.copy()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Duplicate"
             label="copy"
@@ -55,7 +55,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.paste()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Paste"
             label="paste"
@@ -66,7 +66,7 @@ function ContextMenu() {
             disabled={true}
             onClick={() => {
               editor.objects.remove()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Delete"
             label="delete"
@@ -97,7 +97,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.copy()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Duplicate"
             label="copy"
@@ -107,7 +107,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.paste()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Paste"
             label="paste"
@@ -117,7 +117,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.remove()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Delete"
             label="delete"
@@ -128,7 +128,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.bringForward()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Forward"
             label="bring forward"
@@ -138,7 +138,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.sendBackwards()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Backward"
             label="send backward"
@@ -147,11 +147,11 @@ function ContextMenu() {
           </ContextMenuItem>
           <ContextMenuItem
             onClick={() => {
-              handleAsComponentHandler()
-              editor.cancelContextMenu()
+              // handleAsComponentHandler()
+              editor.objects.setAsBackgroundImage()
             }}
             icon="Elements"
-            label="Save as component"
+            label="Set as background image"
           >
             <Elements size={24} />
           </ContextMenuItem>
@@ -159,7 +159,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.lock()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Locked"
             label="lock"
@@ -185,7 +185,7 @@ function ContextMenu() {
           <ContextMenuItem
             onClick={() => {
               editor.objects.unlock()
-              editor.cancelContextMenu()
+              editor.cancelContextMenuRequest()
             }}
             icon="Unlocked"
             label="unlock"

@@ -198,7 +198,7 @@ class Personalization extends Base {
     this.canvas.on("mouse:over", (event) => {
       const target = event.target
       const activeObjects = this.canvas.getActiveObject()
-      if (target && activeObjects !== target && target.type !== "Background") {
+      if (target && activeObjects !== target && target.type !== "Background" && target.type !== "BackgroundImage") {
         const bound = target.getBoundingRect()
         const ctx = this.canvas.getContext()
         ctx.strokeStyle = "#3782F7"

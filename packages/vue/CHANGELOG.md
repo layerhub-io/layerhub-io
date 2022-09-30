@@ -1,5 +1,13 @@
 # @layerhub-io/vue
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @layerhub-io/core@0.3.0
+  - @layerhub-io/objects@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes

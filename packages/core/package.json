@@ -1,6 +1,6 @@
 {
   "name": "@layerhub-io/core",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,8 +18,8 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@layerhub-io/objects": "workspace:^0.1.1",
-    "@layerhub-io/types": "workspace:^0.2.0",
+    "@layerhub-io/objects": "workspace:^0.2.0",
+    "@layerhub-io/types": "workspace:^0.3.0",
     "fabric": "^5.2.1",
     "lodash": "^4.17.21",
     "nanoid": "^3.3.3",

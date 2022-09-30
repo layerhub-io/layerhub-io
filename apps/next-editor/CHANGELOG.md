@@ -1,5 +1,12 @@
 # @layerhub-io/next-editor
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @layerhub-io/react@0.3.0
+
 ## 0.1.3
 
 ### Patch Changes
