@@ -18,6 +18,7 @@ export default function () {
           type: "StaticImage",
           src: url,
         }
+
         editor.objects.add(options)
       }
     },

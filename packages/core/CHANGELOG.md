@@ -1,5 +1,11 @@
 # @layerhub-io/core
 
+## 0.3.1
+
+### Patch Changes
+
+- fix background image on added to editor
+
 ## 0.3.0
 
 ### Minor Changes

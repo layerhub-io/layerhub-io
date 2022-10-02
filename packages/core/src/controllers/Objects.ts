@@ -14,21 +14,40 @@ class Objects extends Base {
   public isCut: any
   public copyStyleClipboard: any
 
-  public add = async <T>(item: T) => {
+  public add = async (item: Partial<ILayer>) => {
     const { canvas } = this
     const options = this.editor.frame.options
     const objectImporter = new ObjectImporter(this.editor)
     const refItem = item as unknown as ILayer
+
     const object: fabric.Object = await objectImporter.import(refItem, options)
     if (this.config.clipToFrame) {
       const frame = this.editor.frame.frame
       object.clipPath = frame
     }
-    canvas.add(object)
-    object.center()
+
+    const isBackgroundImage = refItem.type === LayerType.BACKGROUND_IMAGE
+    let currentBackgrounImage: any
+    if (isBackgroundImage) {
+      currentBackgrounImage = await this.unsetBackgroundImage()
+    }
+
+    if (isBackgroundImage) {
+      canvas.add(object)
+      object.moveTo(2)
+      this.scale("fill", object.id)
+      if (currentBackgrounImage) {
+        canvas.add(currentBackgrounImage)
+        this.sendToBack(currentBackgrounImage.id)
+      }
+    } else {
+      canvas.add(object)
+      object.center()
+    }
 
     this.state.setActiveObject(object)
     canvas.setActiveObject(object)
+
     this.updateContextObjects()
     this.editor.history.save()
 
@@ -719,30 +738,47 @@ class Objects extends Base {
     }
   }
 
-  public async setAsBackgroundImage() {
-    const activeObject = this.canvas.getActiveObject()
-    if (activeObject && activeObject.type === LayerType.STATIC_IMAGE) {
-      const frame = this.editor.frame.frame
+  public unsetBackgroundImage(): Promise<fabric.StaticImage | null> {
+    return new Promise(async (resolve) => {
       const objects = this.canvas.getObjects()
       const currentBackgroundImage = objects.find((o) => o.type === LayerType.BACKGROUND_IMAGE)
-      let nextImage: any
+      let nextImage: fabric.StaticImage
       if (currentBackgroundImage) {
         const currentBackgroundImageJSON = currentBackgroundImage.toJSON(this.config.propertiesToInclude)
         delete currentBackgroundImageJSON.clipPath
         const nextImageElement = await loadImageFromURL(currentBackgroundImageJSON.src)
         nextImage = new fabric.StaticImage(nextImageElement, { ...currentBackgroundImageJSON, id: nanoid() })
         // @ts-ignore
-        this.canvas.add(nextImage)
+        // this.canvas.add(nextImage)
         this.canvas.remove(currentBackgroundImage)
+        resolve(nextImage)
+      } else {
+        resolve(null)
       }
-      const objectJSON = activeObject.toJSON(this.config.propertiesToInclude)
+    })
+  }
+
+  public async setAsBackgroundImage(id?: string) {
+    let refObject = this.canvas.getActiveObject() as fabric.Object
+    if (id) {
+      refObject = this.findOneById(id)
+    }
+
+    if (refObject && refObject.type === LayerType.STATIC_IMAGE) {
+      const frame = this.editor.frame.frame
+      let nextImage = await this.unsetBackgroundImage()
+      if (nextImage) {
+        // @ts-ignore
+        this.canvas.add(nextImage)
+      }
+      const objectJSON = refObject.toJSON(this.config.propertiesToInclude)
       delete objectJSON.clipPath
       const image = await loadImageFromURL(objectJSON.src)
       const backgroundImage = new fabric.BackgroundImage(image, { ...objectJSON, id: nanoid() })
       // @ts-ignore
       this.canvas.add(backgroundImage)
       backgroundImage.clipPath = frame
-      this.canvas.remove(activeObject)
+      this.canvas.remove(refObject)
 
       this.canvas.requestRenderAll()
       this.scale("fill", backgroundImage.id)
