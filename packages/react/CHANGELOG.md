@@ -1,5 +1,13 @@
 # @layerhub-io/react
 
+## 0.3.1
+
+### Patch Changes
+
+- fix background image on added to editor
+- Updated dependencies
+  - @layerhub-io/core@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes
