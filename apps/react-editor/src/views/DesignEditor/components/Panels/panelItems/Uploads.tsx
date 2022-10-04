@@ -7,6 +7,15 @@ import DropZone from "~/components/Dropzone"
 import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { nanoid } from "nanoid"
+import { captureFrame, loadVideoResource } from "~/utils/video"
+
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = (error) => reject(error)
+  })
 
 export default function () {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
@@ -14,13 +23,22 @@ export default function () {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
 
-  const handleDropFiles = (files: FileList) => {
+  const handleDropFiles = async (files: FileList) => {
     const file = files[0]
-    const url = URL.createObjectURL(file)
+
+    const base64 = (await toBase64(file)) as string
+    const video = await loadVideoResource(base64)
+    const frame = await captureFrame(video)
+
+    const type = file.type.includes("video") ? "StaticVideo" : "StaticImage"
+
     const upload = {
       id: nanoid(),
-      url,
+      src: base64,
+      preview: frame,
+      type: type,
     }
+
     setUploads([...uploads, upload])
   }
 
@@ -32,12 +50,8 @@ export default function () {
     handleDropFiles(e.target.files!)
   }
 
-  const addImageToCanvas = (url: string) => {
-    const options = {
-      type: "StaticImage",
-      src: url,
-    }
-    editor.objects.add(options)
+  const addImageToCanvas = (props) => {
+    editor.objects.add(props)
   }
   return (
     <DropZone handleDropFiles={handleDropFiles}>
@@ -90,10 +104,10 @@ export default function () {
                     alignItems: "center",
                     cursor: "pointer",
                   }}
-                  onClick={() => addImageToCanvas(upload.url)}
+                  onClick={() => addImageToCanvas(upload)}
                 >
                   <div>
-                    <img width="100%" src={upload.url} alt="preview" />
+                    <img width="100%" src={upload.preview ? upload.preview : upload.url} alt="preview" />
                   </div>
                 </div>
               ))}

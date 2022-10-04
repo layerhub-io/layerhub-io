@@ -1,5 +1,11 @@
 # @layerhub-io/core
 
+## 0.3.2
+
+### Patch Changes
+
+- fix video loading
+
 ## 0.3.1
 
 ### Patch Changes

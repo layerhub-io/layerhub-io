@@ -105,8 +105,6 @@ class Scene extends Base {
   public exportLayers = async (template: IScene) => {
     let elements: any[] = []
     for (const [index, layer] of template.layers.entries()) {
-      // @ts-ignore
-      const preview = await this.editor.renderer.renderLayer(layer, {})
       if (layer.type === "StaticVideo") {
         elements = elements.concat({
           id: layer.id,
@@ -134,6 +132,8 @@ class Scene extends Base {
           objectId: layer.id,
         })
       } else {
+        // @ts-ignore
+        const preview = await this.editor.renderer.renderLayer(layer, {})
         const objectURL = base64ImageToFile(preview)
         elements = elements.concat({
           id: layer.id,

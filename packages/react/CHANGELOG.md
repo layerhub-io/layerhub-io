@@ -1,5 +1,13 @@
 # @layerhub-io/react
 
+## 0.3.2
+
+### Patch Changes
+
+- fix video loading
+- Updated dependencies
+  - @layerhub-io/core@0.3.2
+
 ## 0.3.1
 
 ### Patch Changes
