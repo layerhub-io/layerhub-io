@@ -1,5 +1,13 @@
 # @layerhub-io/react
 
+## 0.3.3
+
+### Patch Changes
+
+- fix object position on manual update
+- Updated dependencies
+  - @layerhub-io/core@0.3.3
+
 ## 0.3.2
 
 ### Patch Changes
