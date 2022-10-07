@@ -78,7 +78,7 @@ class Objects extends Base {
             canvas.requestRenderAll()
           } else {
             // @ts-ignore
-            refObject.set(property as "top" | "left", options[property])
+            refObject.set(property as "top" | "left", frame[property] + options[property])
             canvas.requestRenderAll()
           }
         } else if (property === "clipToFrame") {
