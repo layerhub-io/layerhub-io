@@ -111,6 +111,8 @@ export interface IStaticText extends LayerBaseOptions {
   underline?: boolean
   text: string
   fill?: string
+  fontStyle?: string
+  fontWeight?: number | string
 }
 
 export interface IDynamicText extends IStaticText {
