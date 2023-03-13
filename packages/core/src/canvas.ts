@@ -17,6 +17,7 @@ class Canvas {
   private config: EditorConfig
 
   constructor({ id, config, editor }: { id: string; config: EditorConfig; editor: Editor }) {
+    console.log("CANVAS CREATED 2")
     this.config = config
     this.editor = editor
     this.canvasId = id

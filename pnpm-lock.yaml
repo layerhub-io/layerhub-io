@@ -61,7 +61,7 @@ importers:
       '@dnd-kit/modifiers': ^6.0.0
       '@dnd-kit/sortable': ^7.0.1
       '@dnd-kit/utilities': ^3.2.0
-      '@layerhub-io/react': workspace:^0.3.0
+      '@layerhub-io/react': workspace:^0.3.3
       '@layerhub-io/react-custom-scrollbar': ^0.0.1
       '@layerhub-io/types': workspace:^0.3.0
       '@layerhub-io/use-timer': ^0.0.1
@@ -218,7 +218,7 @@ importers:
 
   packages/react:
     specifiers:
-      '@layerhub-io/core': workspace:^0.3.0
+      '@layerhub-io/core': workspace:^0.3.3
       '@layerhub-io/types': workspace:^0.3.0
       '@types/react': ^18.0.0
       '@types/react-dom': ^18.0.0
