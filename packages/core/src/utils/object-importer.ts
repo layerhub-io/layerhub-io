@@ -99,7 +99,7 @@ class ObjectImporter {
     return new Promise(async (resolve, reject) => {
       try {
         const baseOptions = this.getBaseOptions(item, options, inGroup)
-        const { src, cropX, cropY } = item as IStaticImage
+        const { src, cropX, cropY, cornerRadius } = item as IStaticImage
 
         const image: any = await loadImageFromURL(src)
 
@@ -114,6 +114,28 @@ class ObjectImporter {
           cropX: cropX || 0,
           cropY: cropY || 0,
         })
+
+
+        if (cornerRadius) {
+          // Get radius percentage (0-100)
+          const radiusPct = cornerRadius;
+
+          // Calculate actual radius in pixels
+          // @ts-ignore
+          const radiusPx = Math.min(baseOptions.width, baseOptions.height) * (radiusPct / 100);
+
+          // Create clip path
+          const clipPath = new fabric.Rect({
+            width: baseOptions.width,
+            height: baseOptions.height,
+            rx: radiusPx / (element.scaleX || 1),
+            ry: radiusPx / (element.scaleY || 1),
+            left: -(baseOptions.width || 0) / 2,
+            top: -(baseOptions.height || 0) / 2
+          });
+
+          element.set("clipPath", clipPath);
+        }
 
         updateObjectBounds(element, options)
         updateObjectShadow(element, item.shadow)

@@ -69,8 +69,39 @@ class Objects extends Base {
       refObject = this.findOneById(id)
     }
     const canvas = this.canvas
+
+    // @ts-ignore
+    if (options.cornerRadius) {
+      // Get radius percentage (0-100)
+      // @ts-ignore
+      const radiusPct = options.cornerRadius;
+
+      // Calculate actual radius in pixels
+      // @ts-ignore
+      const radiusPx = Math.min(refObject.width, refObject.height) * (radiusPct / 100);
+
+      // Create clip path
+      const clipPath = new fabric.Rect({
+        width: refObject.width,
+        height: refObject.height,
+        rx: radiusPx / (refObject.scaleX || 1),
+        ry: radiusPx / (refObject.scaleY || 1),
+        left: -(refObject.width || 0) / 2,
+        top: -(refObject.height || 0) / 2
+      });
+
+      refObject.set("clipPath", clipPath);
+
+    }
+
     if (refObject) {
       for (const property in options) {
+
+        // @ts-ignore
+        if (options[property] === 'cornerRadius') {
+          continue;
+        }
+
         if (property === "angle" || property === "top" || property === "left") {
           if (property === "angle") {
             // @ts-ignore

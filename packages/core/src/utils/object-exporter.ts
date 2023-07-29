@@ -83,13 +83,14 @@ class ObjectExporter {
 
   public staticImage(item: ILayer, options: Required<ILayer>, inGroup: boolean): IStaticImage {
     const baseOptions = this.getBaseOptions(item, options, inGroup)
-    const { src, cropX, cropY, metadata } = item as IStaticImage
+    const { src, cropX, cropY, metadata, cornerRadius } = item as IStaticImage
     const object = {
       ...baseOptions,
       src,
       cropX,
       cropY,
       metadata,
+      cornerRadius
     }
 
     return object
